@@ -3,9 +3,14 @@ package com.wellsFargo.CommBo.service;
 import com.wellsFargo.CommBo.dto.*;
 import com.wellsFargo.CommBo.dto.nlu.NLURequest;
 import com.wellsFargo.CommBo.dto.nlu.NLUResponse;
+import com.wellsFargo.CommBo.dto.nlu.NluEntity;
+import com.wellsFargo.CommBo.enums.EntityTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IntentService {
@@ -20,13 +25,14 @@ public class IntentService {
     private Mono<Result> handleNluResponse(NLUResponse response) {
         Result result = new Result();
         result.setActionType(response.getIntent().name());
+        result.setUserName(this.getUserName(response.getEntities()));
         switch (response.getIntent()) {
             case openUserProfile:
                 PageData data = new PageData("user_profile_url");
                 result.setData(data);
                 break;
             case getUserBalance:
-                UserBalanceRequest request = new UserBalanceRequest(response.getEntities());
+                UserBalanceRequest request = new UserBalanceRequest();
                 //TODO
                 result.setData(this.getUserBalance(request));
                 break;
@@ -44,5 +50,13 @@ public class IntentService {
         //TODO
         UserBalanceResponse userBalance = new UserBalanceResponse();
         return  Mono.just(userBalance);
+    }
+
+    private String getUserName(List<NluEntity> entities) {
+        Optional<String> userName = entities.stream()
+                .filter(e -> e.getEntity().name().equalsIgnoreCase(EntityTypes.Person.name()))
+                .findFirst()
+                .map(e -> e.getValue().toUpperCase());
+        return userName.get();
     }
 }

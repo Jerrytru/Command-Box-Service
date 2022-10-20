@@ -15,8 +15,9 @@ public class UserBalanceRequest {
     private String userName;
     private String accountType;
 
-    public UserBalanceRequest(NluEntity entity) {
+    //TODO
+    /*public UserBalanceRequest(NluEntity entity) {
         this.userName = entity.getUserName();
         this.accountType = entity.getAccountType();
-    }
+    }*/
 }
