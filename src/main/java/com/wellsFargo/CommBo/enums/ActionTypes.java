@@ -1,5 +1,5 @@
 package com.wellsFargo.CommBo.enums;
 
-public enum ActionType {
+public enum ActionTypes {
     NAVIGATE, READ, UPDATE;
 }

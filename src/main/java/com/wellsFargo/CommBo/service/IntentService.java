@@ -1,8 +1,6 @@
 package com.wellsFargo.CommBo.service;
 
-import com.wellsFargo.CommBo.dto.Result;
-import com.wellsFargo.CommBo.dto.UserBalanceResponse;
-import com.wellsFargo.CommBo.dto.UserBalanceRequest;
+import com.wellsFargo.CommBo.dto.*;
 import com.wellsFargo.CommBo.dto.nlu.NLURequest;
 import com.wellsFargo.CommBo.dto.nlu.NLUResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,8 @@ public class IntentService {
         result.setActionType(response.getIntent().name());
         switch (response.getIntent()) {
             case openUserProfile:
+                PageData data = new PageData("user_profile_url");
+                result.setData(data);
                 break;
             case getUserBalance:
                 UserBalanceRequest request = new UserBalanceRequest(response.getEntities());
@@ -31,11 +31,13 @@ public class IntentService {
                 result.setData(this.getUserBalance(request));
                 break;
             case transferUserBalance:
+                TransferBalancePage tbData = new TransferBalancePage();
+                result.setData(tbData);
                 break;
             default:
-                return Mono.just(result);
+                throw new RuntimeException("Command Not Supported");
         }
-        throw new RuntimeException("Unsupported Command");
+        return Mono.just(result);
     }
 
     private Mono<UserBalanceResponse> getUserBalance(UserBalanceRequest request) {

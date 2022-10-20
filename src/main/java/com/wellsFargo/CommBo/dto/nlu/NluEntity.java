@@ -1,16 +1,16 @@
 package com.wellsFargo.CommBo.dto.nlu;
 
+import com.wellsFargo.CommBo.enums.EntityTypes;
 import lombok.Getter;
 
 @Getter
 public class NluEntity {
-    String userName;
-    String transferTo;
-    String transferFrom;
-    Double amount;
-    String pageName;
-    String accountType;
-    String noteMessage;
-    String recommendationType;
+
+    private EntityTypes entity;
+    private int start;
+    private int end;
+    private String value;
+    private String confidence_entity;
+    private String extractor;
 
 }
