@@ -1,7 +1,6 @@
 package com.wellsFargo.CommBo.intent.service;
 
-import com.wellsFargo.CommBo.intent.model.builders.NLURequestBuilder;
-import com.wellsFargo.CommBo.intent.model.dto.NLUResponse;
+import com.wellsFargo.CommBo.intent.model.dto.NLUResponseData;
 import com.wellsFargo.CommBo.intent.model.request.NLURequest;
 
 public interface IntentService {
@@ -9,6 +8,6 @@ public interface IntentService {
     // text - String
     // return NLUResponse
 
-    NLUResponse parseCommand(NLURequest requestBody);
+    NLUResponseData parseCommand(String message);
     //Mono<NLUDetailsResponse> retrieveNLRUResponseMono(NLURequest requestBody);
 }
