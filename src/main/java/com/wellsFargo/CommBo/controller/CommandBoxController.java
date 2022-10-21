@@ -14,6 +14,7 @@ public class CommandBoxController {
     private IntentService intentService;
 
     @PostMapping("/postCommand")
+    @CrossOrigin(origins = "http://localhost:4200/")
     public Result postCommand(@RequestBody Query data){
         Result result = intentService.parseCommand(data.getMessage());
         return result;
