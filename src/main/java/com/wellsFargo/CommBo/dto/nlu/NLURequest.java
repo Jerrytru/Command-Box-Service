@@ -1,14 +1,9 @@
 package com.wellsFargo.CommBo.dto.nlu;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
+@Data
 public class NLURequest {
 
     String text;

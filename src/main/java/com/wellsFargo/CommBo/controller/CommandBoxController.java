@@ -1,17 +1,21 @@
 package com.wellsFargo.CommBo.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.wellsFargo.CommBo.dto.Query;
+import com.wellsFargo.CommBo.dto.Result;
+import com.wellsFargo.CommBo.service.IntentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("intent")
 public class CommandBoxController {
 
+    @Autowired
+    private IntentService intentService;
+
     @PostMapping("/postCommand")
-    public String postCommand(@RequestBody String message){
-        //TODO
-        return message;
+    public Result postCommand(@RequestBody Query data){
+        Result result = intentService.parseCommand(data.getMessage());
+        return result;
     }
 }
