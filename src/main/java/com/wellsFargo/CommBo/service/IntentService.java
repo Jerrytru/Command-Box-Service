@@ -19,6 +19,9 @@ public class IntentService {
     @Autowired
     NLUService nluService;
 
+    @Autowired
+    TwilioService twilioService;
+
     public Result parseCommand(String message) {
         return nluService.retrieveNLUResponse(NLURequest.builder().text(message).build()).flatMap(this::handleNluResponse).block();
     }
@@ -31,25 +34,12 @@ public class IntentService {
         data.setEntityList(response.getEntities());
         data.setIntent(response.getIntent().getName());
         result.setData(data);
-        /*switch (response.getIntent().getName()) {
-            case "transfer_funds":
-                PageData data = new PageData();
-                data.setEntityList(response.getEntities());
-                data.setIntent(response.getIntent().getName());
-                result.setData(data);
+        switch (response.getIntent().getName()) {
+            case "call_customer":
+                twilioService.call();
                 break;
-            case getUserBalance:
-                UserBalanceRequest request = new UserBalanceRequest();
-                //TODO
-                result.setData(this.getUserBalance(request));
-                break;
-            case transferUserBalance:
-                TransferBalancePage tbData = new TransferBalancePage();
-                result.setData(tbData);
-                break;
-            default:
-                throw new RuntimeException("Command Not Supported");
-        }*/
+
+        }
         return Mono.just(result);
     }
 
