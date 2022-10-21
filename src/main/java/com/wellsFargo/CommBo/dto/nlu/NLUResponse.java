@@ -1,12 +1,14 @@
 package com.wellsFargo.CommBo.dto.nlu;
 
 import com.wellsFargo.CommBo.enums.NluIntents;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;
 
-@Getter
+@Data
 public class NLUResponse {
-    private NluIntents intent;
-    private List<NluEntity> entities;
+    String text;
+    private Intent intent;
+    private List<Entity> entities;
 }

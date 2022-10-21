@@ -2,12 +2,11 @@ package com.wellsFargo.CommBo.dto;
 
 import com.wellsFargo.CommBo.enums.NluIntents;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Setter
+@Data
 public class Result {
     private boolean success = false;
     private String query;
