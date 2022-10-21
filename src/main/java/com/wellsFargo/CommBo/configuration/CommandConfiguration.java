@@ -28,7 +28,7 @@ public class CommandConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/intent/postCommand").allowedOrigins(allowedCors);
+                registry.addMapping("/intent/**").allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
             }
         };
     }
